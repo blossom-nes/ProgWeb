@@ -19,13 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-Schema::create('reservation_competition', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('reservation_id')->constrained()->onDelete('cascade');
-    $table->foreignId('competition_id')->constrained()->onDelete('cascade');
-    $table->integer('quantite');
-    $table->timestamps();
-});
+
 
        
     }

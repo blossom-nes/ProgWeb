@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Competition extends Model
 {
     //
+    protected $fillable = [ 'discipline_id', 'tour_id', 'site_id', 'date', 'heure_debut','heure_fin', 'prix'
+];
     public function discipline()
     {
         return $this->belongsTo(Discipline::class);

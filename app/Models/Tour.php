@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tour extends Model
 {
     //
+    protected $fillable = ['nom', 'discipline_id'];
     public function discipline()
     {
         return $this->belongsTo(Discipline::class);

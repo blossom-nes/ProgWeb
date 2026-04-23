@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Discipline extends Model
 {
     //
+    protected $fillable = ['nom'];
 
     public function tours()
     {
