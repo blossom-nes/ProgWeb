@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignID("competition_id");
             $table->string("email");
             $table->string('telephone');
+            $table->string('prenom');
+            $table->string('nom');
             $table->timestamps();
         });
 

@@ -11,3 +11,8 @@
         <hr>
     </div>
 @endforeach
+
+<form action = "{{ route('panier.ajouter', ['id' => $c->id]) }}" method="POST">
+    @csrf
+    <button type="submit">Ajouter au panier</button>
+</form>

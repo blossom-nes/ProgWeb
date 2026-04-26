@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     //
+    protected $fillable = ['prenom', 'nom', 'email', 'telephone'];
     public function competitions(){
         return $this->belongsToMany(Competition::class)->withPivot('quantite');
     }
