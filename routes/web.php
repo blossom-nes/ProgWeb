@@ -30,3 +30,14 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/account', [AuthController::class, 'account'])->middleware('auth');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', [CompetitionController::class, 'indexAdmin']);
+    Route::get('/admin/create', [CompetitionController::class, 'create']);
+    Route::post('/admin', [CompetitionController::class, 'store']);
+
+    Route::get('/admin/{id}/edit', [CompetitionController::class, 'edit']);
+    Route::put('/admin/{id}', [CompetitionController::class, 'update']);
+
+    Route::delete('/admin/{id}', [CompetitionController::class, 'destroy']);
+});
+
