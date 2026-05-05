@@ -9,6 +9,13 @@
         {{ $c->site->nom }} -
         {{ $c->date }}
 
+        <br>
+         Spectateurs : {{ $c->nb_spectateurs }}
+        <br>
+         Places restantes : {{ $c->places_restantes }}
+
+        <br>
+
         <a href="/admin/{{ $c->id }}/edit">Modifier</a>
 
         <form action="/admin/{{ $c->id }}" method="POST">

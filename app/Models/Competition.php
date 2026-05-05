@@ -25,4 +25,12 @@ class Competition extends Model
     public function reservations(){
         return $this->belongsToMany(Reservation::class)->withPivot('quantite');
     }
+
+    public function getNbSpectateursAttribute(){
+        return $this->reservations()->sum('pivot.quantite');
+    }
+    public function getPlacesRestantesAttribute()
+{
+    return $this->site->capacite_max - $this->nb_spectateurs;
+}
 }
