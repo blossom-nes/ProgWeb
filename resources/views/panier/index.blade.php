@@ -1,12 +1,19 @@
+<h1>Mon panier</h1>
 
-
-<h1>Panier</h1>
+@php $total = 0; @endphp
 
 @foreach($panier as $id => $item)
     <p>
-        {{ $item['nom'] }} - 
-        {{ $item['quantite'] }} x {{ $item['prix'] }} €
+        {{ $item['nom'] }} |
+        Quantité : {{ $item['quantite'] }} |
+        Prix : {{ $item['prix'] }} €
+
+        @php
+            $total += $item['prix'] * $item['quantite'];
+        @endphp
     </p>
 @endforeach
 
-<a href="/reservation">Valider la commande</a>
+<h3>Total : {{ $total }} €</h3>
+
+<a href="/reservation">Valider la réservation</a>

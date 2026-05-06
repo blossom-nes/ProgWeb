@@ -17,6 +17,10 @@ Route::get('/panier', [PanierController::class, 'index'])->name('panier.index');
 Route::get('/reservation', [ReservationController::class, 'create']);
 Route::post('/reservation', [ReservationController::class, 'store']);
 
+Route::get('/confirmation',function(){
+    return view('confirmation');
+});
+
 
 
 
@@ -40,4 +44,6 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/admin/{id}', [CompetitionController::class, 'destroy']);
 });
+
+Route::get('/calendrier', [CompetitionController::class, 'calendrier']);
 

@@ -14,21 +14,23 @@ class ReservationController extends Controller
     }
 
     public function store(Request $request)
-{
+{ // créer réservation
     $reservation = Reservation::create([
         'prenom' => $request->prenom,
         'nom' => $request->nom,
         'email' => $request->email,
         'telephone' => $request->telephone
     ]);
+    //récupérer panier 
 
     $panier = session()->get('panier', []);
-
+//  enregistrer dans pivot 
     foreach($panier as $id => $item) {
         $reservation->competitions()->attach($id, [
             'quantite' => $item['quantite']
         ]);
     }
+    //vider panier
 
       session()->forget('panier');
 

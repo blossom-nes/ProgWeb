@@ -27,10 +27,12 @@ class Competition extends Model
     }
 
     public function getNbSpectateursAttribute(){
-        return $this->reservations()->sum('pivot.quantite');
+        return $this->reservations->sum('pivot.quantite');
     }
     public function getPlacesRestantesAttribute()
 {
     return $this->site->capacite_max - $this->nb_spectateurs;
 }
+
+
 }

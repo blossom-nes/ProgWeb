@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Competition;
+use App\Models\Discipline;
+
 
 use Illuminate\Http\Request;
 
@@ -66,6 +68,24 @@ public function destroy($id)
     $competition->delete();
 
     return redirect('/admin');
+}
+public function calendrier(Request $request)
+{
+    $query = Competition::with('discipline','site','tour');
+
+    // filtre discipline
+    if ($request->discipline) {
+        $query->where('discipline_id', $request->discipline);
+    }
+
+    $competitions = $query->orderBy('date')->get();
+
+    // regrouper par date
+    $competitionsParDate = $competitions->groupBy('date');
+
+    $disciplines = Discipline::all();
+
+    return view('calendrier.index', compact('competitionsParDate', 'disciplines'));
 }
 
 }
