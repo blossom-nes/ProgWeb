@@ -78,14 +78,14 @@ public function calendrier(Request $request)
         $query->where('discipline_id', $request->discipline);
     }
 
-    $competitions = $query->orderBy('date')->get();
+    $competitions = $query->orderBy('jour')->get();
 
     // regrouper par date
-    $competitionsParDate = $competitions->groupBy('date');
+    $competitionsParJour = $competitions->groupBy('jour');
 
     $disciplines = Discipline::all();
 
-    return view('calendrier.index', compact('competitionsParDate', 'disciplines'));
+    return view('calendrier.index', compact('competitionsParJour', 'disciplines'));
 }
 
 }

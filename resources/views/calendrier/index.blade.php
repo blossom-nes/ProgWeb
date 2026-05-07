@@ -18,15 +18,15 @@
 <hr>
 
 <!-- AFFICHAGE -->
-@foreach($competitionsParDate as $date => $competitions)
+@foreach($competitionsParJour as $jour => $competitions)
 
-    <h2>{{ $date }}</h2>
+    <h2>{{ $jour }}</h2>
 
     @foreach($competitions as $c)
         <p>
-            {{ $c->discipline->nom }} -
-            {{ $c->tour->nom }} -
-            {{ $c->site->nom }} <br>
+            {{ $c->discipline?->nom}} -
+            {{ $c->tour?->nom }} -
+            {{ $c->site?->nom }} <br>
 
              {{ $c->heure_debut }} - {{ $c->heure_fin }}
         </p>

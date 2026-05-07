@@ -6,6 +6,11 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use App\Models\Discipline;
+use App\Models\Tour;
+use App\Models\Site;
+use App\Models\Competition;
+
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -21,5 +26,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        
+
+
     }
 }
