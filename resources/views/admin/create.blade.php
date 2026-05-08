@@ -21,7 +21,7 @@
         @endforeach
     </select>
 
-    <input type="date" name="date">
+    <input type="date" name="jour">
     <input type="time" name="heure_debut">
     <input type="time" name="heure_fin">
     <input type="number" name="prix">

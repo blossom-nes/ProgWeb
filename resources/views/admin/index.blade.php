@@ -7,7 +7,7 @@
         {{ $c->discipline->nom }} -
         {{ $c->tour->nom }} -
         {{ $c->site->nom }} -
-        {{ $c->date }}
+        {{ $c->jour }}
 
         <br>
          Spectateurs : {{ $c->nb_spectateurs }}

@@ -5,20 +5,30 @@ use App\Models\Competition;
 use App\Models\Discipline;
 
 
+
 use Illuminate\Http\Request;
 
 class CompetitionController extends Controller
 {
     //
 
-    public function index (){
-        //afficher la liste des competitions 
-        $competitions = Competition::with('discipline','tour','site')->get();
+    public function index(Request $request)
+{
+    $query = Competition::with('discipline', 'tour', 'site');
 
-        return view('competitions.index', ['competitions' => $competitions]);
-    
-   
+    if ($request->filled('prix_min')) {
+        $query->where('prix', '>=', $request->prix_min);
     }
+
+    if ($request->filled('prix_max')) {
+        $query->where('prix', '<=', $request->prix_max);
+    }
+
+    $competitions = $query->get();
+
+    return view('competitions.index', ['competitions' => $competitions]);
+}
+
 
     public function indexAdmin (){
         //afficher la liste des competitions 

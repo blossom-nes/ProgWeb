@@ -1,5 +1,41 @@
-<h1>Réservation confirmée !!!!!!</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmation de réservation</title>
+</head>
+<body>
 
-<p>Merci pour votre réservation !</p>
+<h1>✅ Réservation confirmée !</h1>
 
-<a href="/">Retour accueil</a>
+@php $recap = session('recap'); @endphp
+
+@if($recap)
+    <h2>Vos coordonnées</h2>
+    <p>
+        {{ $recap['reservation']['prenom'] }} {{ $recap['reservation']['nom'] }}<br>
+        Email : {{ $recap['reservation']['email'] }}<br>
+        Téléphone : {{ $recap['reservation']['telephone'] }}
+    </p>
+
+    <h2>Billets réservés</h2>
+
+    @php $total = 0; @endphp
+
+    @foreach($recap['panier'] as $id => $item)
+        <p>
+            {{ $item['nom'] }} —
+            {{ $item['quantite'] }} billet(s) x {{ $item['prix'] }} € =
+            {{ $item['quantite'] * $item['prix'] }} €
+        </p>
+        @php $total += $item['quantite'] * $item['prix']; @endphp
+    @endforeach
+
+    <h3>Total payé : {{ $total }} €</h3>
+@else
+    <p>Aucune réservation trouvée.</p>
+@endif
+
+<a href="/">Retour à l'accueil</a>
+
+</body>
+</html>
