@@ -22,7 +22,7 @@ Route::get('/confirmation', function () {
 });
 
 Route::get('/register', [AuthController::class, 'createForm']);
-Route::post('/register', [AuthController::class, 'create']);
+Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
