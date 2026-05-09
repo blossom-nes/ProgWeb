@@ -18,42 +18,54 @@ class ReservationController extends Controller
         return view('reservation.create',['panier'=> $panier]);
     }
 
-    public function store(Request $request)
-{ 
-  $request->validate([
-            'prenom'    => 'required|string|max:255',
-            'nom'       => 'required|string|max:255',
-            'email'     => 'required|email|max:255',
-            'telephone' => 'required|string|max:20',
+  public function store(Request $request)
+    {
+        $request->validate([
+            'prenom'              => 'required|string|max:255',
+            'nom'                 => 'required|string|max:255',
+            'email'               => 'required|email|max:255',
+            'telephone'           => 'required|string|max:20',
+            'spectateurs'         => 'required|array',
+            'spectateurs.*.prenom'=> 'required|string|max:255',
+            'spectateurs.*.nom'   => 'required|string|max:255',
         ]);
-
-    //Créer la réservation 
-    $reservation = Reservation::create([
-        'prenom' => $request->prenom,
-        'nom' => $request->nom,
-        'email' => $request->email,
-        'telephone' => $request->telephone
-    ]);
-    //récupérer panier 
-
-    $panier = session()->get('panier', []);
-//  enregistrer dans pivot 
-    foreach($panier as $id => $item) {
-        $reservation->competitions()->attach($id, [
-            'quantite' => $item['quantite']
+ 
+        // Créer la réservation (coordonnées de l'acheteur)
+        $reservation = Reservation::create([
+            'prenom'    => $request->prenom,
+            'nom'       => $request->nom,
+            'email'     => $request->email,
+            'telephone' => $request->telephone,
         ]);
-    }
-    //vider panier
-    // Sauvegarder le récapitulatif en session AVANT de vider le panier
+ 
+        // Attacher les compétitions du panier (table pivot)
+        $panier = session()->get('panier', []);
+ 
+        foreach ($panier as $id => $item) {
+            $reservation->competitions()->attach($id, [
+                'quantite' => $item['quantite'],
+            ]);
+        }
+ 
+        // Enregistrer les spectateurs (email et téléphone identiques à l'acheteur)
+        foreach ($request->spectateurs as $s) {
+            Spectateur::create([
+                'prenom'         => $s['prenom'],
+                'nom'            => $s['nom'],
+                'reservation_id' => $reservation->id,
+            ]);
+        }
+ 
+        // Sauvegarder le récapitulatif en session avant de vider le panier
         session()->put('recap', [
             'reservation' => $reservation->toArray(),
             'panier'      => $panier,
+            'spectateurs' => $request->spectateurs,
         ]);
-
-
-      session()->forget('panier');
-
-    return redirect('/confirmation');
-}
+ 
+        session()->forget('panier');
+ 
+        return redirect('/confirmation');
+    }
 
 }

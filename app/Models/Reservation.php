@@ -9,7 +9,7 @@ class Reservation extends Model
     //
     protected $fillable = ['prenom', 'nom', 'email', 'telephone'];
     public function competitions(){
-        return $this->belongsToMany(Competition::class)->withPivot('quantite');
+        return $this->belongsToMany(Competition::class, 'reservation_competition')->withPivot('quantite');
     }
 
     public function spectateurs(){

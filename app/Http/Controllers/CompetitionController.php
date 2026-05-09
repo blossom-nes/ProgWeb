@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Competition;
 use App\Models\Discipline;
+use App\Models\Tour;
+use App\Models\Site;
+
 
 
 
@@ -32,12 +35,14 @@ class CompetitionController extends Controller
 
     public function indexAdmin (){
         //afficher la liste des competitions 
-        $competitions = Competition::with('discipline','tour','site')->get();
-
-        return view('admin.index', ['competitions' => $competitions]);
+        $competitions = Competition::with('discipline', 'tour', 'site')->get();
+        $reservations = \App\Models\Reservation::with('competitions.discipline', 'competitions.tour', 'spectateurs')->get();
+ 
+    return view('admin.index', compact('competitions', 'reservations'));
+        
     
-   
     }
+    
 
     public function create()
 {

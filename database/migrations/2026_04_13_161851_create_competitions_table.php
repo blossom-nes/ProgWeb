@@ -19,8 +19,8 @@ return new class extends Migration
 
             $table->decimal('prix');
             $table->string('jour');
-            $table->integer('heure_debut');
-            $table->integer('heure_fin');
+            $table->string('heure_debut');
+            $table->string('heure_fin');
             $table->timestamps();
         });
     }

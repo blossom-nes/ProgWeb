@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Réservation</title>
-</head>
-<body>
-
 <h1>Finaliser la réservation</h1>
 
 {{-- Résumé du panier --}}
@@ -27,11 +20,11 @@
 
 <hr>
 
-{{-- Formulaire coordonnées --}}
-<h2>Vos coordonnées</h2>
-
+{{-- Formulaire coordonnées acheteur + noms spectateurs --}}
 <form action="/reservation" method="POST">
     @csrf
+
+    <h2>Vos coordonnées (acheteur)</h2>
 
     <label>Prénom</label><br>
     <input type="text" name="prenom" value="{{ old('prenom') }}" required><br><br>
@@ -44,6 +37,31 @@
 
     <label>Téléphone</label><br>
     <input type="text" name="telephone" value="{{ old('telephone') }}" required><br><br>
+
+    <hr>
+
+    {{-- Un bloc de champs par billet dans le panier --}}
+    <h2>Noms des spectateurs</h2>
+    <p><em>Renseignez le prénom et nom de chaque personne pour qui vous réservez un billet.</em></p>
+
+    @php $index = 0; @endphp
+
+    @foreach($panier as $id => $item)
+        @for($i = 0; $i < $item['quantite']; $i++)
+            <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <strong>{{ $item['nom'] }} — Billet {{ $i + 1 }}</strong><br><br>
+
+                <label>Prénom</label><br>
+                <input type="text" name="spectateurs[{{ $index }}][prenom]"
+                       value="{{ old('spectateurs.'.$index.'.prenom') }}" required><br><br>
+
+                <label>Nom</label><br>
+                <input type="text" name="spectateurs[{{ $index }}][nom]"
+                       value="{{ old('spectateurs.'.$index.'.nom') }}" required><br><br>
+            </div>
+            @php $index++; @endphp
+        @endfor
+    @endforeach
 
     {{-- Erreurs de validation --}}
     @if($errors->any())
@@ -59,6 +77,3 @@
 
 <br>
 <a href="/panier">← Retour au panier</a>
-
-</body>
-</html>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Competition extends Model
 {
     //
-    protected $fillable = [ 'discipline_id', 'tour_id', 'site_id', 'date', 'heure_debut','heure_fin', 'prix'
+    protected $fillable = [ 'discipline_id', 'tour_id', 'site_id', 'jour', 'heure_debut','heure_fin', 'prix'
 ];
     public function discipline()
     {
@@ -23,8 +23,8 @@ class Competition extends Model
     }
 
     public function reservations(){
-        return $this->belongsToMany(Reservation::class)->withPivot('quantite');
-    }
+    return $this->belongsToMany(Reservation::class, 'reservation_competition')->withPivot('quantite');
+}
 
     public function getNbSpectateursAttribute(){
         return $this->reservations->sum('pivot.quantite');

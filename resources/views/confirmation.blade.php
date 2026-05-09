@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Confirmation de réservation</title>
-</head>
-<body>
-
-<h1>✅ Réservation confirmée !</h1>
+<h1> Réservation confirmée !</h1>
 
 @php $recap = session('recap'); @endphp
 
@@ -31,11 +24,14 @@
     @endforeach
 
     <h3>Total payé : {{ $total }} €</h3>
+
+    <h2>Spectateurs</h2>
+    @foreach($recap['spectateurs'] as $s)
+        <p>{{ $s['prenom'] }} {{ $s['nom'] }}</p>
+    @endforeach
+
 @else
     <p>Aucune réservation trouvée.</p>
 @endif
 
 <a href="/">Retour à l'accueil</a>
-
-</body>
-</html>
