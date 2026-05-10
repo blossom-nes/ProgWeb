@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <h1>Calendrier des compétitions</h1>
 
 <!-- FILTRE -->
@@ -33,3 +35,4 @@
     @endforeach
 
 @endforeach
+@endsection

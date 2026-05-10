@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <h1>Connexion</h1>
 
 <form method="POST" action="/login">
@@ -12,3 +14,4 @@
 @error('invalid')
     <p>{{ $message }}</p>
 @enderror
+@endsection

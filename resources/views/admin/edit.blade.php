@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+@section('content')
 <h1>Modifier une compétition</h1>
 
 <form method="POST" action="/admin/{{ $competition->id }}">
@@ -48,3 +51,4 @@
 
 <br>
 <a href="/admin">← Retour</a>
+@endsection

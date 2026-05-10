@@ -7,38 +7,49 @@ use App\Models\Competition;
 
 class PanierController extends Controller
 {
-    //
-    public function ajouter (Request $request,$id){
+    /**
+     * Ajoute une compétition au panier ou incrémente sa quantité.
+     * Le panier est stocké en session (pas en base de données).
+     * Structure d'un item : ['nom', 'prix', 'quantite']
+     * Redirige vers : la page précédente
+     * Route : POST /panier/ajouter/{id}
+     */
+    public function ajouter(Request $request, $id)
+    {
+        // Récupère la compétition ou renvoie une 404 si introuvable
         $competition = Competition::findOrFail($id);
-        // Va cherhcer une competiton dans la base de données avec cet id
-        //ne trouve pas -> 404 
+
+        // Récupère le panier actuel depuis la session
         $panier = session()->get('panier', []);
-        //recupere le panier stocké en session ->stockage temporaire 
 
         if (isset($panier[$id])) {
-            # code...
-            $panier[$id]['quantite']++;
-        }else{
-            $panier[$id] =[
-                "nom"=> $competition -> discipline -> nom,
-                "prix"=>$competition -> prix,
-                "quantite"=>1
+            // Si la compétition est déjà dans le panier, on augmente la quantité
+            $panier[$id]['quantite'] += $request->quantite ?? 1;
+        } else {
+            // Sinon on l'ajoute avec les infos nécessaires pour l'affichage
+            $panier[$id] = [
+                'nom'      => $competition->discipline->nom,
+                'prix'     => $competition->prix,
+                'quantite' => $request->quantite ?? 1,
             ];
-
         }
-        session()->put('panier',$panier);
-        //enregistre la panier dans la session
 
-        return redirect()->back()->with('success','Ajouté au panier');
-        // renvoie à la pahe précédente  // le message ajouté au panier va s'afficher la vue 
+        // Sauvegarde le panier mis à jour en session
+        session()->put('panier', $panier);
 
-
+        return redirect()->back()->with('success', 'Ajouté au panier');
     }
 
-    public function index(){
+    /**
+     * Affiche le contenu du panier.
+     * Utilisé dans : resources/views/panier/index.blade.php
+     * Route : GET /panier
+     */
+    public function index()
+    {
+        // Récupère le panier depuis la session (tableau vide si aucun item)
         $panier = session()->get('panier', []);
-        return view('panier.index', ['panier' => $panier]);
-        
-    }
 
+        return view('panier.index', ['panier' => $panier]);
+    }
 }

@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+@section('content')
 <h1>Mon compte</h1>
 
 @auth
@@ -14,3 +17,4 @@
         <button>Logout</button>
     </form>
 @endauth
+@endsection

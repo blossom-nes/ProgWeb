@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <h1>Finaliser la réservation</h1>
 
 {{-- Résumé du panier --}}
@@ -77,3 +79,4 @@
 
 <br>
 <a href="/panier">← Retour au panier</a>
+@endsection

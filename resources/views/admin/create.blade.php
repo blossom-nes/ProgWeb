@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+@section('content')
 <h1>Ajouter compétition</h1>
 
 <form method="POST" action="/admin">
@@ -28,3 +31,4 @@
 
     <button>Ajouter</button>
 </form>
+@endsection

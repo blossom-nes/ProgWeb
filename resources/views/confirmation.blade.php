@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+@section('content')
 <h1> Réservation confirmée !</h1>
 
 @php $recap = session('recap'); @endphp
@@ -35,3 +38,4 @@
 @endif
 
 <a href="/">Retour à l'accueil</a>
+@endsection

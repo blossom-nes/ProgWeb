@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+@section('content')
 <h1>Mon panier</h1>
 
 @php $total = 0; @endphp
@@ -17,3 +20,4 @@
 <h3>Total : {{ $total }} €</h3>
 
 <a href="/reservation">Valider la réservation</a>
+@endsection

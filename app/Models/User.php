@@ -9,7 +9,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role'])]  // 'role' ajouté
+/**
+ * Table : users
+ * Représente un utilisateur du site.
+ * Le champ 'role' détermine l'accès :
+ *   - 'user'  → accès public uniquement
+ *   - 'admin' → accès à l'espace organisateur (/admin)
+ * Utilisé dans : AuthController, middleware IsAdmin
+ */
+#[Fillable(['name', 'email', 'password', 'role'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -23,7 +31,10 @@ class User extends Authenticatable
         ];
     }
 
-    // Helper pratique pour les vues : @if(auth()->user()->isAdmin())
+    /**
+     * Vérifie si l'utilisateur est un organisateur (admin).
+     * Utilisé dans : middleware IsAdmin, vues Blade (@if(auth()->user()->isAdmin()))
+     */
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

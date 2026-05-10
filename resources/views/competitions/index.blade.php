@@ -1,3 +1,6 @@
+
+@extends('layouts.app')
+@section('content')
 <h1>Liste des compétitions</h1>
 
 {{-- Formulaire de filtre par prix --}}
@@ -34,3 +37,6 @@
 @empty
     <p>Aucune compétition trouvée pour ces critères de prix.</p>
 @endforelse
+<hr>
+<a href="/panier"> Voir mon panier et valider la réservation</a>
+@endsection

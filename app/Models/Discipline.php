@@ -11,10 +11,12 @@ class Discipline extends Model
 
     public function tours()
     {
+        // une discipline  a plusieurs tours 
         return $this->hasMany(Tour::class);
     }
 
     public function competitions(){
+        //une discipline a plusieurs  compétitions 
         return $this->hasMany(Competition::class);
     }
 }

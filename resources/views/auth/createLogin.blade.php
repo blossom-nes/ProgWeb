@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <h1>Créer un compte</h1>
 
 <form method="POST" action="/register">
@@ -11,3 +13,4 @@
 
     <button>S'inscrire</button>
 </form>
+@endsection

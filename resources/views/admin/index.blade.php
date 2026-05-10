@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <h1>Admin - Compétitions</h1>
 
 <a href="/admin/create">Ajouter une compétition</a>
@@ -49,3 +51,4 @@
 @empty
     <p>Aucune réservation pour le moment.</p>
 @endforelse
+@endsection
